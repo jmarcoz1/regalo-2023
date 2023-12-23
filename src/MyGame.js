@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import { Button, Card, CardContent, Typography } from '@mui/material';
+import { Button, Card, CardContent, Typography, Stack, Box } from '@mui/material';
 import { createTheme, ThemeProvider } from '@mui/material/styles';  
 import './MyGame.css';
 
 async function fetchData() {
   let uniqueRandomNumbers = new Set();
-  while (uniqueRandomNumbers.size !== 4) {
+  while (uniqueRandomNumbers.size !== 6) {
     uniqueRandomNumbers.add(Math.floor(Math.random() * 9 + 4));
   }
   let uRNArray = [...uniqueRandomNumbers];
@@ -35,7 +35,7 @@ const theme = createTheme({
   }
 })
 
-const Question = ({ question, answers, correctAnswer }) => {
+const Question = ({ question, answers, correctAnswer, onNext }) => {
   const [selectedAnswer, setSelectedAnswer] = useState(null);
   const [isCorrect, setIsCorrect] = useState(null);
 
@@ -43,36 +43,45 @@ const Question = ({ question, answers, correctAnswer }) => {
     if (selectedAnswer.replace(';', '') === correctAnswer.replace(';', '')) {
       setIsCorrect(true);
       document.body.style.backgroundColor = 'green';
+      setTimeout(() => document.body.style.backgroundColor = '', 1000);
+      onNext();
     } else {
       setIsCorrect(false);
       document.body.style.backgroundColor = 'red';
+      setTimeout(() => document.body.style.backgroundColor = '', 1000);
     }
   };
 
   return (
     <ThemeProvider theme={theme}>
-    <Card sx={{ backgroundColor: '#1B4242', width: '80%', margin: '0 auto', py: 2 }}>
-      <CardContent>
-        <Typography variant="h5" sx={{ color: '#9EC8B9' }}>{question}</Typography>
-        {answers.map((answer, index) => (
-          <Button key={index} variant="outlined" color="blues" onClick={() => setSelectedAnswer(answer)}>
-            {answer}
-          </Button>
-        ))}
-        <Button variant="contained" color="blues" onClick={handleSubmit}>
-          Enviar
-        </Button>
-        {isCorrect !== null && (
-          <Typography variant="h6" sx={{ color: '#9EC8B9' }}>{isCorrect ? 'Correct!' : 'Incorrect!'}</Typography>
-        )}
-      </CardContent>
-    </Card>
+      <Card sx={{ backgroundColor: '#1B4242', width: '80%', margin: '0 auto', py: 2 }}>
+        <CardContent>
+          <Typography variant="h5" sx={{ color: '#9EC8B9', textAlign: 'center', py: 2 }}>{question}</Typography>
+          <Stack direction="column" spacing={2}>
+            {answers.map((answer, index) => (
+              <Button
+                key={index}
+                variant="outlined"
+                color={answer === selectedAnswer ? 'secondary' : 'blues'}
+                onClick={() => setSelectedAnswer(answer)}
+              >
+                {answer}
+              </Button>
+            ))}
+            <Button variant="contained" color="blues" onClick={handleSubmit}>
+              Enviar
+            </Button>
+          </Stack>
+        </CardContent>
+      </Card>
     </ThemeProvider>
   );
 };
 
 const MyGame = () => {
   const [questions, setQuestions] = useState([]);
+  const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
+  const [correctAnswers, setCorrectAnswers] = useState(0);
 
   useEffect(() => {
     fetchData().then((data) => {
@@ -80,16 +89,36 @@ const MyGame = () => {
     });
   }, []);
   console.log(questions)
+
+  const handleNext = () => {
+    setCurrentQuestionIndex((prevIndex) => prevIndex + 1);
+  };
+
+  const handleCorrect = () => {
+    setCorrectAnswers((prevCorrectAnswers) => prevCorrectAnswers + 1);
+  };
+
   return (
-    <div sx={{ backgroundColor: 'rgba(0, 0, 0, 0.5)' }}>
-      {questions.map((q, index) => (
-        <Question
-          key={index}
-          question={q.question}
-          answers={q.answers.split(';')}
-          correctAnswer={q.trueAnswers}
-        />
-      ))}
+    <div sx={{ backgroundColor: 'rgba(0, 0, 0, 0.5)', height: '100vh' }}>
+      <ThemeProvider theme={theme}>
+        <Typography variant="h2" sx={{ color: '#9EC8B9', textAlign: 'center' }}>Scott's trivia</Typography>
+        <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100%' }}>
+          {questions.length > 0 && currentQuestionIndex < questions.length ? (
+            <Question
+              question={questions[currentQuestionIndex].question}
+              answers={questions[currentQuestionIndex].answers.split(';')}
+              correctAnswer={questions[currentQuestionIndex].trueAnswers}
+              onNext={handleNext}
+              onCorrect={handleCorrect}
+            />
+          ) : (
+            <Typography variant="h4" sx={{ color: '#9EC8B9', textAlign: 'center', px: 2, py: 2 }}>
+              Has respondido todas las preguntas.
+              El pin para abrir el regalo es 5698.
+            </Typography>
+          )}
+        </Box>
+      </ThemeProvider>
     </div>
   );
 };
