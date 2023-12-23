@@ -5,8 +5,8 @@ import './MyGame.css';
 
 async function fetchData() {
   let uniqueRandomNumbers = new Set();
-  while (uniqueRandomNumbers.size !== 6) {
-    uniqueRandomNumbers.add(Math.floor(Math.random() * 9 + 4));
+  while (uniqueRandomNumbers.size !== 13) {
+    uniqueRandomNumbers.add(Math.floor(Math.random() * 13 + 4));
   }
   let uRNArray = [...uniqueRandomNumbers];
 
