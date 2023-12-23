@@ -1,0 +1,14 @@
+.game-container {
+  background-color: rgba(0, 0, 0, 0.5); /* semi-black background */
+}
+
+.question-card {
+  width: 80%;
+  margin: 0 auto;
+  background-color: lightblue; /* light blue background for question cards */
+}
+
+.question-text,
+.result-text {
+  color: orange; /* orange text for questions and results */
+}
