@@ -111,10 +111,14 @@ const MyGame = () => {
               onNext={handleNext}
               onCorrect={handleCorrect}
             />
-          ) : (
+          ) : correctAnswers === questions.length && questions.length > 0 ? (
             <Typography variant="h4" sx={{ color: '#9EC8B9', textAlign: 'center', px: 2, py: 2 }}>
               Has respondido todas las preguntas.
               El pin para abrir el regalo es 5698.
+            </Typography>
+          ) : (
+            <Typography variant="h4" sx={{ color: '#9EC8B9', textAlign: 'center', px: 2, py: 2 }}>
+              Cargando...
             </Typography>
           )}
         </Box>
