@@ -133,7 +133,7 @@ const MyGame = () => {
             />
           ) : (
             <ThemeProvider theme={poem}>
-              <Typography variant="h5" sx={{ color: '#9EC8B9', textAlign: 'center', px: 40, py: 2 }}>
+              <Typography variant="h5" sx={{ color: '#9EC8B9', textAlign: 'center', px: 10, py: 2 }}>
                 Un torero de gran valor<br/>
                 que luchaba por su nación<br/>
                 se enfrentó al comunismo<br/>
