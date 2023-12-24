@@ -1,16 +1,16 @@
 {
   "files": {
     "main.css": "/regalo-2023/static/css/main.8a121087.css",
-    "main.js": "/regalo-2023/static/js/main.3cc303d2.js",
+    "main.js": "/regalo-2023/static/js/main.7782b244.js",
     "static/js/787.8e4c459c.chunk.js": "/regalo-2023/static/js/787.8e4c459c.chunk.js",
     "static/media/logo.svg": "/regalo-2023/static/media/logo.6ce24c58023cc2f8fd88fe9d219db6c6.svg",
     "index.html": "/regalo-2023/index.html",
     "main.8a121087.css.map": "/regalo-2023/static/css/main.8a121087.css.map",
-    "main.3cc303d2.js.map": "/regalo-2023/static/js/main.3cc303d2.js.map",
+    "main.7782b244.js.map": "/regalo-2023/static/js/main.7782b244.js.map",
     "787.8e4c459c.chunk.js.map": "/regalo-2023/static/js/787.8e4c459c.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.8a121087.css",
-    "static/js/main.3cc303d2.js"
+    "static/js/main.7782b244.js"
   ]
 }
