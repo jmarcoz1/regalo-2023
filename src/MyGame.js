@@ -35,6 +35,20 @@ const theme = createTheme({
   }
 })
 
+const poem = createTheme({
+  palette: {
+    blues: {
+      main: '#F7E987',
+      light: '#9EC8B9',
+      dark: '#1B4242',
+      contrastText: '#5B9A8B',
+    },
+  },
+  typography: {
+    fontFamily: 'Cormorant Garamond',
+  }
+})
+
 const Question = ({ question, answers, correctAnswer, onNext }) => {
   const [selectedAnswer, setSelectedAnswer] = useState(null);
   const [isCorrect, setIsCorrect] = useState(null);
@@ -118,10 +132,32 @@ const MyGame = () => {
               onCorrect={handleCorrect}
             />
           ) : (
-            <Typography variant="h4" sx={{ color: '#9EC8B9', textAlign: 'center', px: 2, py: 2 }}>
-              Has respondido todas las preguntas.
-              El pin para abrir el regalo es 5698.
-            </Typography>
+            <ThemeProvider theme={poem}>
+              <Typography variant="h5" sx={{ color: '#9EC8B9', textAlign: 'center', px: 40, py: 2 }}>
+                Un torero de gran valor<br/>
+                que luchaba por su nación<br/>
+                se enfrentó al comunismo<br/>
+                que quería robar su ilusión<br/>
+                <br/>
+                Con su arte y su coraje<br/>
+                retó al enemigo feroz<br/>
+                que traía la opresión<br/>
+                y el terror a su voz<br/>
+                <br/>
+                En el ruedo de la gloria<br/>
+                dio una lección de honor<br/>
+                y con una faena de oro<br/>
+                le clavó el estoque al dragón<br/>
+                <br/>
+                El torero fue el salvador<br/>
+                de su patria y su pasión<br/>
+                y el pueblo le dio su amor<br/>
+                y su eterna admiración<br/>
+                <br/>
+                5698.
+              </Typography>
+            </ThemeProvider>
+            
           )}
         </Box>
       </ThemeProvider>
