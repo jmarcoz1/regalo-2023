@@ -82,10 +82,12 @@ const MyGame = () => {
   const [questions, setQuestions] = useState([]);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [correctAnswers, setCorrectAnswers] = useState(0);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     fetchData().then((data) => {
       setQuestions(data);
+      setIsLoading(false);
     });
   }, []);
   console.log(questions)
@@ -103,7 +105,11 @@ const MyGame = () => {
       <ThemeProvider theme={theme}>
         <Typography variant="h2" sx={{ color: '#9EC8B9', textAlign: 'center' }}>Scott's trivia</Typography>
         <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100%' }}>
-          {questions.length > 0 && currentQuestionIndex < questions.length ? (
+          {isLoading ? (
+            <Typography variant="h4" sx={{ color: '#9EC8B9', textAlign: 'center', px: 2, py: 2 }}>
+              Cargando...
+            </Typography>
+          ) : currentQuestionIndex < questions.length ? (
             <Question
               question={questions[currentQuestionIndex].question}
               answers={questions[currentQuestionIndex].answers.split(';')}
@@ -111,14 +117,10 @@ const MyGame = () => {
               onNext={handleNext}
               onCorrect={handleCorrect}
             />
-          ) : correctAnswers === questions.length && questions.length > 0 ? (
+          ) : (
             <Typography variant="h4" sx={{ color: '#9EC8B9', textAlign: 'center', px: 2, py: 2 }}>
               Has respondido todas las preguntas.
               El pin para abrir el regalo es 5698.
-            </Typography>
-          ) : (
-            <Typography variant="h4" sx={{ color: '#9EC8B9', textAlign: 'center', px: 2, py: 2 }}>
-              Cargando...
             </Typography>
           )}
         </Box>
@@ -126,5 +128,4 @@ const MyGame = () => {
     </div>
   );
 };
-
 export default MyGame;
